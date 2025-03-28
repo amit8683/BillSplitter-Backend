@@ -36,7 +36,7 @@ public class BasicAuthSecurityConfiguration {
 	        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 	        .csrf(csrf -> csrf.disable()) 
 	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/register", "/login","/teams/**","/teamMembers/**","/expense/**","/api/expense-splits/**").permitAll()
+	            .requestMatchers("/register", "/login").permitAll()
 	            .anyRequest().authenticated()
 	        )
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
