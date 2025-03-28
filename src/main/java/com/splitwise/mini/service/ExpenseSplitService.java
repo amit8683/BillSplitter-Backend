@@ -6,6 +6,7 @@ import com.splitwise.mini.dto.ExpenseSplitDTO;
 
 public interface ExpenseSplitService {
 	List<ExpenseSplitDTO> getExpenseSplitsByExpenseId(Integer expenseId);
-    void updateSplitStatus(Integer splitId, String status);
+	 String requestToMarkAsPaid(Integer splitId);
+	 String requestToMarkAsSettled(Integer splitId);
 
 }

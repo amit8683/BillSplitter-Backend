@@ -46,4 +46,8 @@ public class ExpenseSplit {
     
     @Column(nullable = false)
     private BigDecimal amount;
+    
+    @Column(nullable = true)  // Allows null values
+    private String status = "Pending";  // Default value
+
 }

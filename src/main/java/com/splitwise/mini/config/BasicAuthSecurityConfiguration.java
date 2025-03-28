@@ -33,8 +33,8 @@ public class BasicAuthSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    http
-	        .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ Fix: Enable CORS inside security
-	        .csrf(csrf -> csrf.disable()) // ✅ Fix: Disable CSRF if using JWT
+	        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+	        .csrf(csrf -> csrf.disable()) 
 	        .authorizeHttpRequests(auth -> auth
 	            .requestMatchers("/register", "/login","/teams/**","/teamMembers/**","/expense/**","/api/expense-splits/**").permitAll()
 	            .anyRequest().authenticated()
@@ -62,11 +62,10 @@ public class BasicAuthSecurityConfiguration {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 	    CorsConfiguration configuration = new CorsConfiguration();
-	    configuration.setAllowedOrigins(List.of("http://localhost:5173")); // ✅ Allow frontend origin
+	    configuration.setAllowedOrigins(List.of("http://localhost:5173")); 
 	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 	    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-	    configuration.setAllowCredentials(true); // ✅ Important for authentication
-
+	    configuration.setAllowCredentials(true);
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	    source.registerCorsConfiguration("/**", configuration);
 	    return source;

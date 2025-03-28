@@ -23,16 +23,31 @@ public class ExpenseSplitServiceImpl implements ExpenseSplitService {
         List<ExpenseSplit> expenseSplits = expenseSplitRepository.findByExpenseExpenseId(expenseId);
         return expenseSplits.stream()
                 .map(split -> new ExpenseSplitDTO(split.getSplitId(), split.getExpense().getExpenseId(), 
-                        split.getUser().getUserId(), split.getAmount()))
+                        split.getUser().getUserId(), split.getAmount(),split.getStatus()))
                 .collect(Collectors.toList());
     }
-
+    
     @Override
-    public void updateSplitStatus(Integer splitId, String status) {
-        ExpenseSplit split = expenseSplitRepository.findById(splitId)
-                .orElseThrow(() -> new RuntimeException("Expense Split not found"));
-        // Add logic to update the split status
-        // Example: split.setStatus(status);
-        expenseSplitRepository.save(split);
+    public String requestToMarkAsPaid(Integer splitId) {
+        return expenseSplitRepository.findById(splitId)
+                .map(split -> {
+                    split.setStatus("Requested");
+                    expenseSplitRepository.save(split);
+                    return "Status updated to Requested";
+                })
+                .orElse("Split not found");
     }
+
+	@Override
+	public String requestToMarkAsSettled(Integer splitId) {
+		return expenseSplitRepository.findById(splitId)
+                .map(split -> {
+                    split.setStatus("Settled");
+                    expenseSplitRepository.save(split);
+                    return "Status updated to Settled";
+                })
+                .orElse("Split not found");
+	}
+
+    
 }

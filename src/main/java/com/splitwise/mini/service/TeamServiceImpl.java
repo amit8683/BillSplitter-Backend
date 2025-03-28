@@ -30,6 +30,7 @@ public class TeamServiceImpl implements TeamService{
 
 	@Override
 	public TeamDTO createTeam(TeamDTO teamDTO) {
+		System.out.print(teamDTO);
 		 Users creator = usersRepository.findById(teamDTO.getCreatedBy())
 	                .orElseThrow(() -> new RuntimeException("Creator not found"));
 		 Team team = new Team();
